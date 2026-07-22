@@ -25,13 +25,11 @@ st.set_page_config(
 
 apply_theme()
 
-# Backend URL
-DEFAULT_API = "http://127.0.0.1:8000/api"
-
+# Backend API URL
 if "api_url" not in st.session_state:
     st.session_state["api_url"] = os.getenv(
         "INSIGHTAI_API_URL",
-        DEFAULT_API,
+        "http://127.0.0.1:8000/api",
     )
 
 st.title("InsightAI")
@@ -49,11 +47,12 @@ with mid:
         else:
             st.warning(
                 f"""
-Could not connect to the backend.
+⚠️ **Backend unreachable**
 
 Current API URL:
 
 `{st.session_state['api_url']}`
 
-If you're running locally:
+If you're running locally, start the backend with:
+
 
