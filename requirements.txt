@@ -1,6 +1,7 @@
-# Installed by Vercel's Python builder for api/index.py.
-# Kept lean-ish for serverless bundle size; see README "Serverless size" note
-# if you hit Vercel's ~250MB unzipped function size limit.
+streamlit>=1.40.0
+requests
+python-dotenv
+
 fastapi==0.111.0
 sqlalchemy==2.0.30
 psycopg2-binary==2.9.9
