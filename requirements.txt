@@ -1,0 +1,15 @@
+# Installed by Vercel's Python builder for api/index.py.
+# Kept lean-ish for serverless bundle size; see README "Serverless size" note
+# if you hit Vercel's ~250MB unzipped function size limit.
+fastapi==0.111.0
+sqlalchemy==2.0.30
+psycopg2-binary==2.9.9
+pandas==2.3.1
+numpy>=2.0
+plotly==5.22.0
+sqlparse==0.5.0
+python-multipart==0.0.9
+reportlab==4.2.0
+openpyxl==3.1.2
+google-generativeai==0.7.0
+pydantic==2.7.1
