@@ -1,8 +1,4 @@
-.material-symbols-outlined,
-.material-icons,
-[data-testid="stIconMaterial"] {{
-    font-family: "Material Symbols Outlined", "Material Icons" !important;
-}}
+
 
 """
 InsightAI visual theme — "Modern Institutional" (Charcoal / Off-White / Burgundy).
