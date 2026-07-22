@@ -1,3 +1,9 @@
+.material-symbols-outlined,
+.material-icons,
+[data-testid="stIconMaterial"] {{
+    font-family: "Material Symbols Outlined", "Material Icons" !important;
+}}
+
 """
 InsightAI visual theme — "Modern Institutional" (Charcoal / Off-White / Burgundy).
 
@@ -51,20 +57,10 @@ _CSS = f"""
 }}
 
 /* ---------------- base page ---------------- */
-html, body, .stApp {
+html, body, [class^="st-"], [class*=" st-"], .stApp {{
+    font-family: {_FONT_STACK} !important;
     color: var(--insight-text) !important;
-}
-
-.stApp,
-.stApp p,
-.stApp label,
-.stApp input,
-.stApp textarea,
-.stApp button,
-.stMarkdown,
-.stCaption {
-    font-family: {_FONT_STACK};
-}
+}}
 
 .stApp {{
     background-color: var(--insight-bg) !important;
