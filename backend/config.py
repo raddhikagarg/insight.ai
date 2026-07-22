@@ -21,8 +21,8 @@ class Settings:
     # --- CORS ---
     ALLOWED_ORIGINS: list[str] = os.getenv(
     "ALLOWED_ORIGINS",
-    "http://localhost:8501"
-    ).split(",")
+    "http://localhost:8501,https://*.streamlit.app"
+).split(",")
 
     # --- App ---
     APP_NAME: str = "InsightAI"
