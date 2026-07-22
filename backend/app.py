@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .config import settings
-from .database import Base, engine
-from .routes import router
+from config import settings
+from database import Base, engine
+from routes import router
 
-# Create database tables (if they don't already exist)
+# Create database tables
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -22,15 +22,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# API routes
-app.include_router(router, prefix="/api", tags=["InsightAI"])
+# API Routes
+app.include_router(router, prefix="/api")
 
 
 @app.get("/")
 def root():
     return {
         "status": "ok",
-        "service": settings.APP_NAME,
+        "app": settings.APP_NAME,
         "docs": "/docs",
     }
 
@@ -38,5 +38,5 @@ def root():
 @app.get("/health")
 def health():
     return {
-        "status": "healthy",
+        "status": "healthy"
     }
