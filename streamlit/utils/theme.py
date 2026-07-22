@@ -51,10 +51,20 @@ _CSS = f"""
 }}
 
 /* ---------------- base page ---------------- */
-html, body, [class^="st-"], [class*=" st-"], .stApp {{
-    font-family: {_FONT_STACK} !important;
+html, body, .stApp {
     color: var(--insight-text) !important;
-}}
+}
+
+.stApp,
+.stApp p,
+.stApp label,
+.stApp input,
+.stApp textarea,
+.stApp button,
+.stMarkdown,
+.stCaption {
+    font-family: {_FONT_STACK};
+}
 
 .stApp {{
     background-color: var(--insight-bg) !important;
