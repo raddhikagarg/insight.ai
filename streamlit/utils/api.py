@@ -10,12 +10,15 @@ import streamlit as st
 def get_api_url() -> str:
     return st.session_state.get("api_url", "http://127.0.0.1:8000/api")
 
-
 def check_health() -> bool:
     try:
-        r = requests.get(f"{get_api_url()}/health", timeout=3)
+        r = requests.get(
+            f"{get_api_url()}/health",
+            timeout=70,
+        )
         return r.ok
-    except Exception:
+    except Exception as e:
+        st.error(f"Health check failed: {e}")
         return False
 
 
