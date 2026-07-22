@@ -55,4 +55,12 @@ Current API URL:
 
 If you're running locally, start the backend with:
 
+    cd backend
+    uvicorn app:app --reload --port 8000
 
+If you're deploying this Streamlit app, deploy the FastAPI backend separately
+(Render, Railway, Fly.io, etc.) and set the Streamlit secret:
+
+INSIGHTAI_API_URL=https://your-backend-url/api
+"""
+            )
