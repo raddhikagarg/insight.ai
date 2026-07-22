@@ -1,22 +1,29 @@
 # Backend
-fastapi>=0.115.0
-uvicorn>=0.30.0
-sqlalchemy>=2.0.30
-python-dotenv>=1.0.1
-python-multipart>=0.0.9
-
-# Frontend
-streamlit==1.49.0
-requests>=2.32.0
-
-# Data
-pandas>=2.2.0
-numpy>=2.0.0
-plotly>=5.22.0
-openpyxl>=3.1.2
-
-# Reports
-reportlab>=4.2.0
+fastapi==0.139.2
+uvicorn==0.51.0
+sqlalchemy==2.0.51
+sqlparse==0.5.3
+python-dotenv==1.2.2
+python-multipart==0.0.32
+pydantic==2.13.4
 
 # AI
-google-generativeai>=0.7.0
+google-generativeai==0.8.6
+
+# Frontend
+streamlit==1.60.0
+
+# Data Processing
+pandas==3.0.3
+numpy==2.5.1
+openpyxl==3.1.5
+plotly==6.9.0
+
+# Reports
+reportlab==5.0.0
+
+# HTTP
+requests==2.34.2
+
+# Utilities
+tqdm==4.69.0
