@@ -27,10 +27,14 @@ apply_theme()
 
 # Backend API URL
 if "api_url" not in st.session_state:
-    st.session_state["api_url"] = os.getenv(
-        "INSIGHTAI_API_URL",
-        "http://127.0.0.1:8000/api",
-    )
+    if "INSIGHTAI_API_URL" in st.secrets:
+        st.session_state["api_url"] = st.secrets["INSIGHTAI_API_URL"]
+    else:
+        st.session_state["api_url"] = os.getenv(
+            "INSIGHTAI_API_URL",
+            "http://127.0.0.1:8000/api"
+        )
+
 
 st.title("InsightAI")
 st.caption(

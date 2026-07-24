@@ -12,53 +12,102 @@ st.set_page_config(page_title="Settings — InsightAI", layout="wide")
 apply_theme()
 require_login()
 
-st.title("Settings")
+st.title("⚙️ Settings")
 
+# ---------------- Backend ----------------
 with st.container(border=True):
     st.markdown("#### Backend connection")
-    new_url = st.text_input("API base URL", value=get_api_url())
-    if new_url != get_api_url():
-        st.session_state["api_url"] = st.secrets["INSIGHTAI_API_URL"]
-        st.rerun()
 
-st.divider()
-with st.container(border=True):
-    st.markdown("#### Active dataset")
-    datasets = get_datasets()
-    if datasets:
-        table_names = [d["table_name"] for d in datasets]
-        current = st.session_state.get("active_table", "uploaded_sales_dataset_v2")
-        chosen = st.selectbox(
-            "Table used by Dashboard / Analytics / AI Assistant",
-            table_names,
-            index=table_names.index(current) if current in table_names else 0,
-        )
-        st.session_state["active_table"] = chosen
-    else:
-        st.caption("Could not load datasets.")
-
-st.divider()
-with st.container(border=True):
-    st.markdown("#### LLM engine")
-    st.caption(
-        "InsightAI uses Google Gemini for NL-to-SQL and insights when `GEMINI_API_KEY` "
-        "is set in `backend/.env`. Without a key, it automatically falls back to a "
-        "rule-based engine so the app keeps working for demos."
+    st.text_input(
+        "API base URL",
+        value=get_api_url(),
+        disabled=True,
+        help="Configured automatically from Streamlit Secrets."
     )
 
+    if st.button("Test Connection"):
+        import requests
+
+        try:
+            r = requests.get(f"{get_api_url()}/health", timeout=5)
+            if r.ok:
+                st.success("Backend is connected.")
+            else:
+                st.error("Backend responded with an error.")
+        except Exception as e:
+            st.error(f"Cannot connect to backend.\n\n{e}")
+
+# ---------------- Dataset ----------------
 st.divider()
+
+with st.container(border=True):
+    st.markdown("#### Active dataset")
+
+    datasets = get_datasets()
+
+    if datasets:
+        table_names = [d["table_name"] for d in datasets]
+
+        current = st.session_state.get(
+            "active_table",
+            table_names[0]
+        )
+
+        chosen = st.selectbox(
+            "Dataset used throughout the application",
+            table_names,
+            index=table_names.index(current)
+            if current in table_names
+            else 0,
+        )
+
+        st.session_state["active_table"] = chosen
+
+        st.success(f"Current dataset: **{chosen}**")
+
+    else:
+        st.warning("No datasets available.")
+
+# ---------------- AI ----------------
+st.divider()
+
+with st.container(border=True):
+    st.markdown("#### AI Engine")
+
+    st.info(
+        "If a Gemini API key is configured, InsightAI uses Gemini for "
+        "natural language to SQL generation and business insights.\n\n"
+        "Otherwise it automatically falls back to the built-in "
+        "rule-based SQL engine."
+    )
+
+# ---------------- Account ----------------
+st.divider()
+
 with st.container(border=True):
     st.markdown("#### Account")
+
     st.write(f"Signed in as **{st.session_state.get('username', 'unknown')}**")
+
     if st.button("Logout", use_container_width=True):
         logout()
         st.rerun()
 
+# ---------------- Session ----------------
 st.divider()
+
 with st.container(border=True):
-    st.markdown("#### Danger zone")
-    if st.button("Clear session state (client-side only)", use_container_width=True):
-        for key in ["last_response", "prefill_question", "active_table"]:
+    st.markdown("#### Session")
+
+    if st.button("Clear Session", use_container_width=True):
+        keys = [
+            "last_response",
+            "prefill_question",
+            "active_table",
+        ]
+
+        for key in keys:
             st.session_state.pop(key, None)
+
         st.success("Session cleared.")
         st.rerun()
