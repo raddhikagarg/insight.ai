@@ -15,7 +15,12 @@ apply_theme()
 require_login()
 
 st.title("Business Dashboard")
-active_table = st.session_state.get("active_table", "sales")
+
+DEFAULT_DATASET = "uploaded_sales_dataset_v2"
+
+active_table = st.session_state.get("active_table", DEFAULT_DATASET)
+st.session_state["active_table"] = active_table
+st.session_state["active_table"] = active_table
 st.caption(f"Querying table: `{active_table}`")
 
 # ---------------- KPI row (from the backend, not a local CSV) ---------------- #

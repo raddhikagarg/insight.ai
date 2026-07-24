@@ -15,7 +15,10 @@ apply_theme()
 require_login()
 
 st.title("Analytics Overview")
-active_table = st.session_state.get("active_table", "sales")
+DEFAULT_DATASET = "uploaded_sales_dataset_v2"
+
+active_table = st.session_state.get("active_table", DEFAULT_DATASET)
+st.session_state["active_table"] = active_table
 
 PRESET_VIEWS = [
     ("Revenue by Region", "Which region generated the highest revenue?"),
