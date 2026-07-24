@@ -12,7 +12,7 @@ st.set_page_config(page_title="Settings — InsightAI", layout="wide")
 apply_theme()
 require_login()
 
-st.title("⚙️ Settings")
+st.title("Settings")
 
 # ---------------- Backend ----------------
 with st.container(border=True):
@@ -48,17 +48,23 @@ with st.container(border=True):
     if datasets:
         table_names = [d["table_name"] for d in datasets]
 
-        current = st.session_state.get(
-            "active_table",
-            table_names[0]
-        )
+        DEFAULT_DATASET = "uploaded_sales_dataset_v2"
+
+        # Initialize the active dataset if it doesn't exist
+        if "active_table" not in st.session_state:
+            st.session_state["active_table"] = DEFAULT_DATASET
+
+        current = st.session_state["active_table"]
+
+        # If the current/default dataset isn't available, use the first one
+        if current not in table_names:
+            current = table_names[0]
+            st.session_state["active_table"] = current
 
         chosen = st.selectbox(
             "Dataset used throughout the application",
             table_names,
-            index=table_names.index(current)
-            if current in table_names
-            else 0,
+            index=table_names.index(current),
         )
 
         st.session_state["active_table"] = chosen
@@ -80,7 +86,6 @@ with st.container(border=True):
         "Otherwise it automatically falls back to the built-in "
         "rule-based SQL engine."
     )
-
 # ---------------- Account ----------------
 st.divider()
 
