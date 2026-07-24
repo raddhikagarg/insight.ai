@@ -53,14 +53,24 @@ _CSS = f"""
 }}
 
 /* ---------------- base page ---------------- */
-html, body, [class^="st-"], [class*=" st-"], .stApp {{
-    font-family: {_FONT_STACK} !important;
+html,
+body,
+.stApp {
     color: var(--insight-text) !important;
-}}
+}
 
-.stApp {{
-    background-color: var(--insight-bg) !important;
-}}
+body,
+.stApp,
+.stMarkdown,
+p,
+label,
+button,
+input,
+textarea,
+h1,h2,h3,h4,h5,h6 {
+    font-family: {_FONT_STACK};
+}
+
 
 [data-testid="stHeader"] {{
     background-color: var(--insight-bg) !important;
