@@ -27,7 +27,7 @@ with st.container(border=True):
     datasets = get_datasets()
     if datasets:
         table_names = [d["table_name"] for d in datasets]
-        current = st.session_state.get("active_table", "sales")
+        current = st.session_state.get("active_table", "uploaded_sales_dataset_v2")
         chosen = st.selectbox(
             "Table used by Dashboard / Analytics / AI Assistant",
             table_names,
