@@ -6,19 +6,28 @@ this keeps every page in sync with whatever the backend actually returns.
 import requests
 import streamlit as st
 
-
 import os
 
-def get_api_url() -> str:
-    if "api_url" not in st.session_state:
-        if "INSIGHTAI_API_URL" in st.secrets:
-            st.session_state["api_url"] = st.secrets["INSIGHTAI_API_URL"]
-        else:
-            st.session_state["api_url"] = os.getenv(
-                "INSIGHTAI_API_URL",
-                "http://127.0.0.1:8000/api"
-            )
+import os
+import requests
+import streamlit as st
 
+
+def get_api_url() -> str:
+    # Already initialized
+    if "api_url" in st.session_state:
+        return st.session_state["api_url"]
+
+    # Streamlit Cloud secret
+    if "INSIGHTAI_API_URL" in st.secrets:
+        st.session_state["api_url"] = st.secrets["INSIGHTAI_API_URL"]
+        return st.session_state["api_url"]
+
+    # Local development
+    st.session_state["api_url"] = os.getenv(
+        "INSIGHTAI_API_URL",
+        "http://127.0.0.1:8000/api",
+    )
     return st.session_state["api_url"]
 
 def check_health() -> bool:
