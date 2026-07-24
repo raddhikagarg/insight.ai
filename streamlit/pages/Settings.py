@@ -18,7 +18,7 @@ with st.container(border=True):
     st.markdown("#### Backend connection")
     new_url = st.text_input("API base URL", value=get_api_url())
     if new_url != get_api_url():
-        st.session_state["api_url"] = new_url
+        st.session_state["api_url"] = st.secrets["INSIGHTAI_API_URL"]
         st.rerun()
 
 st.divider()
